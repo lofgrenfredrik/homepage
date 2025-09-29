@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="description" content="Fredrik Löfgren, developer" />
     <title>lofgrenfredrik.com</title>
     <link
@@ -13,6 +12,7 @@
       href="./fonts/solway-v1-latin-regular.woff2"
       crossorigin
     />
+    <link rel="dns-prefetch" href="//hhg-analytics.vercel.app" />
     <script
       async
       defer
@@ -25,14 +25,20 @@
         font-style: normal;
         font-weight: 400;
         font-display: swap;
-        src: url("./fonts/solway-v1-latin-regular.eot");
-        src: local("Solway Regular"), local("Solway-Regular"),
-          url("./fonts/solway-v1-latin-regular.eot?#iefix")
-            format("embedded-opentype"),
-          url("./fonts/solway-v1-latin-regular.woff2") format("woff2"),
-          url("./fonts/solway-v1-latin-regular.woff") format("woff"),
-          url("./fonts/solway-v1-latin-regular.ttf") format("truetype"),
-          url("./fonts/solway-v1-latin-regular.svg#Solway") format("svg");
+        src: url("./fonts/solway-v1-latin-regular.woff2") format("woff2"), url("./fonts/solway-v1-latin-regular.woff") format("woff"), url("./fonts/solway-v1-latin-regular.ttf") format("truetype");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Solway", Georgia, "Times New Roman", serif;
+        background-color: #f0ffff;
+        color: #000000;
+        line-height: 1.5;
       }
 
       .container {
@@ -41,91 +47,135 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        background-color: azure;
+        padding: 1rem;
       }
 
       .title {
-        font-family: "Solway", serif;
-        font-size: 39px;
-        margin: 0 auto 50px;
+        font-size: clamp(2.5rem, 8vw, 4.5rem);
+        margin: 0 0 3rem;
+        text-align: center;
+        font-weight: 400;
       }
 
       .link-container {
-        width: 100%;
-        max-width: 200px;
-
         display: flex;
-        justify-content: space-between;
+        gap: 2rem;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .social-link {
+        display: inline-block;
+        transition: transform 0.2s ease-in-out;
+        border-radius: 8px;
+        padding: 0.5rem;
+      }
+
+      .social-link:hover,
+      .social-link:focus {
+        transform: scale(1.1);
+        outline: 2px solid #000000;
+        outline-offset: 2px;
       }
 
       .icon {
-        width: 60px;
-        height: 60px;
+        width: 3.75rem;
+        height: 3.75rem;
+        display: block;
+        fill: #000000;
       }
 
-      .hidden {
-        position: absolute;
-        left: -10000px;
-        top: auto;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
+      .visually-hidden {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        padding: 0 !important;
+        margin: -1px !important;
+        overflow: hidden !important;
+        clip: rect(0, 0, 0, 0) !important;
+        white-space: nowrap !important;
+        border: 0 !important;
       }
 
-      @media (min-width: 599px) {
-        .title {
-          font-size: 72px;
+      @media (min-width: 48rem) {
+        .container {
+          padding: 2rem;
         }
 
         .link-container {
-          max-width: 300px;
+          gap: 3rem;
         }
 
         .icon {
-          width: 100px;
-          height: 100px;
+          width: 6.25rem;
+          height: 6.25rem;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .social-link {
+          transition: none;
+        }
+
+        .social-link:hover,
+        .social-link:focus {
+          transform: none;
         }
       }
     </style>
   </head>
 
-  <body class="container">
-    <h1 class="title">Fredrik Löfgren</h1>
-    <div class="link-container">
-      <a
-        data-umami-event="github-click"
-        href="https://github.com/lofgrenfredrik"
-        title="Github"
-      >
-        <span class="hidden">To github profile</span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          style="fill: #000000"
-          class="icon"
+  <body>
+    <main class="container">
+      <h1 class="title">Fredrik Löfgren</h1>
+      <nav class="link-container" role="navigation" aria-label="Social media profiles">
+        <a
+          class="social-link"
+          data-umami-event="github-click"
+          href="https://github.com/lofgrenfredrik"
+          aria-label="Visit Fredrik Löfgren's GitHub profile"
+          rel="noopener noreferrer"
+          target="_blank"
         >
-          <path
-            d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
-          />
-        </svg>
-      </a>
-      <a
-        data-umami-event="gitlab-click"
-        href="https://gitlab.com/lofgrenfredrik"
-        title="Gitlab"
-      >
-        <span class="hidden">To gitlab profile</span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          style="fill: #000000"
-          class="icon"
+          <span class="visually-hidden">GitHub profile</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="icon"
+            role="img"
+            aria-hidden="true"
+          >
+            <title>GitHub</title>
+            <path
+              d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+            />
+          </svg>
+        </a>
+        <a
+          class="social-link"
+          data-umami-event="gitlab-click"
+          href="https://gitlab.com/lofgrenfredrik"
+          aria-label="Visit Fredrik Löfgren's GitLab profile"
+          rel="noopener noreferrer"
+          target="_blank"
         >
-          <path
-            d="M4.844.904a1.007 1.007 0 00-.955.692l-2.53 7.783c0 .007-.005.012-.007.02L.07 13.335a1.437 1.437 0 00.522 1.607l11.072 8.045a.566.566 0 00.67-.004l11.074-8.04a1.436 1.436 0 00.522-1.61l-1.26-3.867a.547.547 0 00-.031-.104l-2.526-7.775a1.004 1.004 0 00-.957-.684.987.987 0 00-.949.69l-2.406 7.408H8.203l-2.41-7.408a.987.987 0 00-.943-.69h-.006zm-.006 1.42l2.174 6.678H2.674l2.164-6.678zm14.328 0l2.168 6.678h-4.342l2.174-6.678zm-10.594 7.81h6.862l-2.15 6.618L12 20.693 8.572 10.135zm-5.515.005h4.322l3.086 9.5-7.408-9.5zm13.568 0h4.326l-6.703 8.588-.709.914 2.959-9.108.127-.394zM2.1 10.762l6.978 8.947-7.818-5.682a.305.305 0 01-.112-.341l.952-2.924zm19.8 0l.952 2.922a.305.305 0 01-.11.341v.002l-7.82 5.68.025-.035 6.953-8.91z"
-          />
-        </svg>
-      </a>
-    </div>
+          <span class="visually-hidden">GitLab profile</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="icon"
+            role="img"
+            aria-hidden="true"
+          >
+            <title>GitLab</title>
+            <path
+              d="M4.844.904a1.007 1.007 0 00-.955.692l-2.53 7.783c0 .007-.005.012-.007.02L.07 13.335a1.437 1.437 0 00.522 1.607l11.072 8.045a.566.566 0 00.67-.004l11.074-8.04a1.436 1.436 0 00.522-1.61l-1.26-3.867a.547.547 0 00-.031-.104l-2.526-7.775a1.004 1.004 0 00-.957-.684.987.987 0 00-.949.69l-2.406 7.408H8.203l-2.41-7.408a.987.987 0 00-.943-.69h-.006zm-.006 1.42l2.174 6.678H2.674l2.164-6.678zm14.328 0l2.168 6.678h-4.342l2.174-6.678zm-10.594 7.81h6.862l-2.15 6.618L12 20.693 8.572 10.135zm-5.515.005h4.322l3.086 9.5-7.408-9.5zm13.568 0h4.326l-6.703 8.588-.709.914 2.959-9.108.127-.394zM2.1 10.762l6.978 8.947-7.818-5.682a.305.305 0 01-.112-.341l.952-2.924zm19.8 0l.952 2.922a.305.305 0 01-.11.341v.002l-7.82 5.68.025-.035 6.953-8.91z"
+            />
+          </svg>
+        </a>
+      </nav>
+    </main>
   </body>
 </html>
